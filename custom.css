@@ -1,0 +1,16 @@
+#loginContainer {
+    margin-top: 18%;
+}
+
+.registerInput {
+    float: right;
+}
+
+#registerBtn {
+    margin-top: 3%;
+    float: right;
+}
+
+#registerHomeBtn {
+    float: right;
+}
