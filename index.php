@@ -8,8 +8,8 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $loginSQL = "SELECT * FROM users WHERE email = '$email' AND wachtwoord = '$password'";
-    $loginQuery = mysqli_query($connection, $loginSQL);
+//    $loginSQL = "SELECT * FROM users WHERE email = '$email' AND wachtwoord = '$password'";
+    $loginQuery = mysqli_query($connection, "SELECT * FROM users WHERE email = '$email' AND wachtwoord = '$password'");
 
     if ($loginQuery) {
         $loginResult = mysqli_num_rows($loginQuery);
@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
             $_SESSION['naam'] = $row['Naam'];
             $_SESSION['email'] = $row['Email'];
             $_SESSION['password'] = $row['Wachtwoord'];
-            $_SESSION['id'] = $row['userID'];
+            $_SESSION['id'] = $row['ID'];
             $_SESSION['loggedin'] = true;
             header("Location: overview.php");
         } elseif ($_POST) {
