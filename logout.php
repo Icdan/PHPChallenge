@@ -5,4 +5,4 @@ session_destroy();
 
 echo "<p align='center' style='margin-top:20%'>U bent uitgelogd</p>";
 
-header("Refresh:1; url=index.php");
+header("Refresh:0; url=index.php");

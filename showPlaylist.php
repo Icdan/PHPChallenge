@@ -7,7 +7,18 @@ if (!$_SESSION['loggedin'] == true) {
     header("Location: index.php");
 }
 
-$id = $_SESSION['id'];
+$playlistID = $_POST['playlistID'];
+
+if (isset($_POST['name']) && isset($_POST['artiest']) && isset($_POST['songURL'])) {
+    $songName = $_POST['name'];
+    $artist = $_POST['artiest'];
+    $album = $_POST['album'];
+    $songURL = $_POST['songURL'];
+
+    if ($addSongQuery = mysqli_query($connection, "INSERT INTO songs (songname, artist, album, link, playlistID) VALUES ('$songName', '$artist', '$album','$songURL', '$playlistID')")) {
+        header("Location: overview.php");
+    }
+}
 
 ?>
 <!doctype html>
@@ -21,43 +32,79 @@ $id = $_SESSION['id'];
 <body>
 <?php
 include "include/navbar.php";
-?>
-<div id="contentContainer">
-    <?php
-    echo "<pre>";
-    var_dump($_SESSION);
-    echo "</pre>";
-    echo "Welkom bij uw playlists, " . $_SESSION['naam']
-    ?>
-    <br><input type="button" value="Create a playlist" onclick="directToPlaylistCreation()">
-    <?php
-    echo "<table>";
 
-    $selectQuery = mysqli_query($connection, "SELECT *  FROM playlist INNER JOIN users ON playlist.userID = users.ID WHERE users.ID = '$id'");
+        $playlistID = $_POST['playlistID'];
+        $selectQuery = mysqli_query($connection, "SELECT * FROM playlist INNER JOIN users ON playlist.userID = users.ID WHERE playlist.playlistID = '$playlistID'");
 
-    while ($test = mysqli_fetch_array($selectQuery)) {
         echo "<pre>";
-        var_dump($test);
+        var_dump($_POST);
         echo "</pre>";
-        $playlistName = $test['playlistNaam'];
-        $playlistImage = $test['Image'];
+
+        echo "<table>";
+
+        while ($test = mysqli_fetch_array($selectQuery)) {
+            $playlistName = $test['playlistNaam'];
+            $playlistImage = $test['Image'];
+            $playlistID = $test['playlistID'];
+
+            $_SESSION['playlistName'] = $playlistName;
+            $_SESSION['playlistImage'] = $playlistImage;
+
+            echo "
+                <tr>
+                <td>$playlistName</td>
+                <td><img src='$playlistImage' width='200' height='200'></td>
+                <td><input type='hidden' name='playlistID' value='$playlistID'></td>
+                </tr>
+                <tr>
+                <td></td>
+                <td><input type='button' value='Add song to playlist' class='mt-5'></td>
+                </tr>
+                ";
+        }
 
         echo "
-                           <tr>
-                           <td>$playlistName</td>
-                           <td><a href='#'><img src='$playlistImage' width='300' height='300'></a></td>
-                           </tr>";
-    }
-    echo "</table>";
-    ?>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        </tr>
+        ";
+
+        echo "</table>";
+        ?>
+<div id="loginContainer" class="col-sm-4 mx-auto">
+    <h4>Please enter the information for your song</h4>
+    <form method="post">
+        <label>Naam: </label>
+        <input class="form-control" type="text" name="name">
+        <br>
+        <label>Artiest: </label>
+        <input class="form-control" type="text" name="artiest">
+        <br>
+        <label>Album: </label>
+        <input class="form-control" type="text" name="album">
+        <br>
+        <label>Link van liedje: </label>
+        <input class="form-control" type="text" name="songURL">
+        <br>
+        <?php
+        echo "<input type='hidden' value='$playlistID' name='playlistID'>"
+         ?>
+        <input type='submit' name="addSong" class='' value='Add song to playlist'/>
+    </form>
 </div>
+<pre>
+<?php
+if (isset($_POST)) {
+    echo 'Contents of $_POST <br>';
+    print_r($_POST);
+}
+?>
+</pre>
 <?php
 include "include/footer.php";
 ?>
-<script>
-    function directToPlaylistCreation() {
-        window.location.href = "createPlaylist.php";
-    }
-</script>
+
 </body>
 </html>

@@ -1,0 +1,11 @@
+<?php
+
+
+//        $playlistName = $_SESSION['playlistNaam'];
+        $selectQuery = mysqli_query($connection, "SELECT * FROM users");
+        var_dump($selectQuery);
+//        var_dump($connection);
+        var_dump($_SESSION);
+?>
+<p>test</p>
+
