@@ -58,14 +58,6 @@ if (isset($_POST['login'])) {
         <input type='submit' name="register" class='btn btn-primary' id='registerHomeBtn' value='Register'/>
     </form>
 </div>
-<pre>
-<?php
-if (isset($_POST)) {
-    echo 'Contents of $_POST <br>';
-    print_r($_POST);
-}
-?>
-</pre>
 <?php
 include "include/footer.php";
 ?>

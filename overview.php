@@ -34,8 +34,6 @@ include "include/navbar.php";
     $selectQuery = mysqli_query($connection, "SELECT * FROM playlist INNER JOIN users ON playlist.userID = users.ID WHERE users.ID = '$id'");
 
 
-
-
     while ($test = mysqli_fetch_array($selectQuery)) {
         $playlistName = $test['playlistNaam'];
         $playlistImage = $test['Image'];
@@ -58,15 +56,6 @@ include "include/navbar.php";
     }
     echo "</table>";
     ?>
-    <pre>
-<?php
-
-if (isset($_POST)) {
-    echo 'Contents of $_POST <br>';
-    print_r($_POST);
-}
-?>
-</pre>
 </div>
 <?php
 include "include/footer.php";

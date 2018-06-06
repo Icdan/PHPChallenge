@@ -94,14 +94,7 @@ include "include/navbar.php";
         <input type='submit' name="addSong" class='' value='Add song to playlist'/>
     </form>
 </div>
-<pre>
-<?php
-if (isset($_POST)) {
-    echo 'Contents of $_POST <br>';
-    print_r($_POST);
-}
-?>
-</pre>
+
 <?php
 include "include/footer.php";
 ?>

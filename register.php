@@ -38,15 +38,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password'])
         <input type='submit' name="register" class='btn btn-primary' id='registerBtn' value='Register'/>
     </form>
 </div>
-<pre>
-<?php
-if (isset($_POST)) {
-    echo 'Contents of $_POST <br>';
-    print_r($_POST);
-}
 
-?>
-</pre>
 <?php
 include "include/footer.php";
 ?>
